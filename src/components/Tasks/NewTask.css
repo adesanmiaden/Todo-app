@@ -1,3 +1,8 @@
+.taskDiv {
+    margin-top:50px;
+    margin-bottom: 30px;
+}
+
 .task{
     display: flex;
     justify-content: space-between;

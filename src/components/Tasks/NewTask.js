@@ -3,10 +3,9 @@ import Card from '../UI/Card';
 import { useRef } from 'react';
 import './NewTask.css';
 
-function NewTask() {
-    const [error, setError] = useState();
+function NewTask(props) {
+    const [error, setError] = useState(null);
     const inputRef = useRef();
-    const enteredValue = inputRef.current.value;
 
     const addTask = async(taskText) => {
         try {
@@ -18,11 +17,11 @@ function NewTask() {
                   },
             })
 
-            if (!response.status === 400 || response.status === 404){
+            if (response.status === 400 || response.status === 404){
                 throw new Error('something went wrong')
             }
 
-            const data = await response.json();
+            // const data = await response.json();
             // const generateId = data.name
             // const textContent = {id: generateId, text:taskText }
         } catch (err) {
@@ -32,10 +31,12 @@ function NewTask() {
 
     const submitHandler =(event) => {
         event.preventDefault();
+        const enteredValue = inputRef.current.value;
         addTask(enteredValue);
     }
 
   return (
+    <div className='taskDiv'>
     <Card>
         <div className='task'>
             <input ref={inputRef}/>
@@ -43,6 +44,7 @@ function NewTask() {
             {error && <p>{error}</p>}
         </div>
     </Card>
+    </div>
   )
 }
 
