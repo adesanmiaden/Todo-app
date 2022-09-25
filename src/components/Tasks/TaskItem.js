@@ -2,11 +2,15 @@ import React, { useEffect } from 'react';
 import Card from '../UI/Card';
 import { useState } from 'react';
 import './TaskItem.css';
+import { EnteredContext } from './NewTask';
+import { useContext } from 'react';
 
 function TaskItem() {
     const [error, setError] = useState();
     const [isLoading, setIsLoading] = useState(false);
     const [todos, setTodos] = useState([]);
+    const valueContext = useContext(EnteredContext);
+    console.log('VAL', valueContext)
 
     const fetchItems = async () => {
         try {
@@ -32,9 +36,14 @@ function TaskItem() {
         fetchItems();
     }, [])
 
-    // const addTodos = () =>{
-    //     setTodos((prevTodos) => prevTodos.concat(todos))
-    // }
+    const addTodos = () =>{
+        setTodos((prevTodos) => prevTodos.concat({valueContext}))
+    }
+
+    // useEffect(()=> {
+    //     addTodos();
+    // }, [{valueContext}])
+
 
   return (
     <div>

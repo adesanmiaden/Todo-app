@@ -3,8 +3,10 @@ import Card from '../UI/Card';
 import { useRef } from 'react';
 import './NewTask.css';
 
+export const EnteredContext = React.createContext();
 function NewTask(props) {
     const [error, setError] = useState(null);
+    const [value, setValue] = useState('hh');
     const inputRef = useRef();
 
     const addTask = async(taskText) => {
@@ -32,16 +34,19 @@ function NewTask(props) {
     const submitHandler =(event) => {
         event.preventDefault();
         const enteredValue = inputRef.current.value;
+        setValue(enteredValue);
         addTask(enteredValue);
     }
 
   return (
-    <div className='taskDiv'>
+    <div className='taskDiv' >
     <Card>
         <div className='task'>
+            <EnteredContext.Provider value={value}>
             <input ref={inputRef}/>
             <button onClick={submitHandler}>Add Task</button>
             {error && <p>{error}</p>}
+            </EnteredContext.Provider>
         </div>
     </Card>
     </div>
