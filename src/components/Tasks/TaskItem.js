@@ -36,13 +36,9 @@ function TaskItem() {
         fetchItems();
     }, [])
 
-    const addTodos = () =>{
-        setTodos((prevTodos) => prevTodos.concat({valueContext}))
-    }
-
-    // useEffect(()=> {
-    //     addTodos();
-    // }, [{valueContext}])
+    // const addTodos = () =>{
+    //     setTodos((prevTodos) => prevTodos.concat({valueContext}))
+    // }
 
 
   return (
