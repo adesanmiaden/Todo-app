@@ -36,17 +36,16 @@ function NewTask(props) {
         const enteredValue = inputRef.current.value;
         setValue(enteredValue);
         addTask(enteredValue);
+        props.onEnteredValue(enteredValue);
     }
 
   return (
     <div className='taskDiv' >
     <Card>
         <div className='task'>
-            <EnteredContext.Provider value={value}>
             <input ref={inputRef}/>
             <button onClick={submitHandler}>Add Task</button>
             {error && <p>{error}</p>}
-            </EnteredContext.Provider>
         </div>
     </Card>
     </div>
