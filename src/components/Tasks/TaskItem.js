@@ -5,12 +5,11 @@ import './TaskItem.css';
 import { EnteredContext } from './NewTask';
 import { useContext } from 'react';
 
-function TaskItem() {
+function TaskItem(props) {
     const [error, setError] = useState();
     const [isLoading, setIsLoading] = useState(false);
     const [todos, setTodos] = useState([]);
-    const valueContext = useContext(EnteredContext);
-    console.log('VAL', valueContext)
+    // const valueContext = useContext(EnteredContext);
 
     const fetchItems = async () => {
         try {
@@ -36,13 +35,14 @@ function TaskItem() {
         fetchItems();
     }, [])
 
-    // const addTodos = () =>{
-    //     setTodos((prevTodos) => prevTodos.concat({valueContext}))
-    // }
+    const onAdd = (todoList) =>{
+        console.log('helllllloo')
+        setTodos((prevTodos) => prevTodos.concat(todoList))
+    }
 
 
   return (
-    <div>
+    <div onAddValue = {onAdd}>
     <Card>
         {todos.length === 0 ? 'no content found' :
         <div className='content'>
