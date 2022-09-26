@@ -2,12 +2,11 @@ import React, { useState } from 'react';
 import Card from '../UI/Card';
 import { useRef } from 'react';
 import './NewTask.css';
+import CreateTask from './CreateTask';
 
 export const EnteredContext = React.createContext();
 function NewTask(props) {
     const [error, setError] = useState(null);
-    const [value, setValue] = useState('hh');
-    const inputRef = useRef();
 
     const addTask = async(taskText) => {
         try {
@@ -23,29 +22,22 @@ function NewTask(props) {
                 throw new Error('something went wrong')
             }
 
-            // const data = await response.json();
-            // const generateId = data.name
-            // const textContent = {id: generateId, text:taskText }
+            const data = await response.json();
+            const generateId = data.name
+            const textContent = {id: generateId, text:taskText }
+
+            props.onEnteredValue(textContent);
         } catch (err) {
             setError(err.message)
         }
     }
 
-    const submitHandler =(event) => {
-        event.preventDefault();
-        const enteredValue = inputRef.current.value;
-        setValue(enteredValue);
-        addTask(enteredValue);
-        props.onEnteredValue(enteredValue);
-    }
 
   return (
-    <div className='taskDiv' >
+    <div className='taskDiv'>
     <Card>
-        <div className='task'>
-            <input ref={inputRef}/>
-            <button onClick={submitHandler}>Add Task</button>
-            {error && <p>{error}</p>}
+        <div>
+            <CreateTask onAddTask={addTask} error={error}/>
         </div>
     </Card>
     </div>

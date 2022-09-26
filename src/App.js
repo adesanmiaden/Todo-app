@@ -1,30 +1,45 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import NewTask from './components/Tasks/NewTask';
 import TaskItem from './components/Tasks/TaskItem';
 
 function App(props) {
-  const [todoList, setTodoList] = useState([]);
+  const [error, setError] = useState();
+  const [isLoading, setIsLoading] = useState(false);
+  const [todos, setTodos] = useState([]);
 
-  const addValueHandler =(enteredValue)=>{
-    const enteredData ={
-      ...enteredValue,
-      id: Math.random().toString()
+  const fetchItems = async () => {
+    setIsLoading(true);
+    try {
+        const response = await fetch('https://todo-b742c-default-rtdb.firebaseio.com/todos.json')
+        const data = await response.json();
+        const tasks = [];
+
+        for (const items in data){
+            tasks.push({id:items, text:data[items].text})
+        }
+        setTodos(tasks);
+
+    } catch (err){
+        setError(err.message)
     }
-    setTodoList(enteredData);
-    console.log('addvalue');
-    props.onAdd(todoList);
-  }
+  setIsLoading(false)
+}
 
-  const todoHandler =() => {
-    props.onAddValue(todoList);
-    console.log('toddddoo')
-  }
+useEffect(()=> {
+  fetchItems();
+ }, [])
+
+const addValueHandler =(enteredValue)=>{
+    setTodos((prevTodos)=>{
+      return prevTodos.concat(enteredValue)
+    })
+}
 
   return (
     <>
     <NewTask onEnteredValue={addValueHandler}/>
-    <TaskItem onAdd={todoHandler}/>
+    <TaskItem todoList={todos} error={error} isLoading={isLoading}/>
     </>
   );
 }

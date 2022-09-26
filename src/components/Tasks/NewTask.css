@@ -3,11 +3,6 @@
     margin-bottom: 30px;
 }
 
-.task{
-    display: flex;
-    justify-content: space-between;
-    padding: 5px;
-}
 
 .task input {
     border-top: none;
