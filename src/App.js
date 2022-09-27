@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import NewTask from './components/Tasks/NewTask';
 import TaskItem from './components/Tasks/TaskItem';
+import Header from './components/UI/Header';
 
 function App(props) {
   const [error, setError] = useState();
@@ -38,6 +39,7 @@ const addValueHandler =(enteredValue)=>{
 
   return (
     <>
+    <Header/>
     <NewTask onEnteredValue={addValueHandler}/>
     <TaskItem todoList={todos} error={error} isLoading={isLoading}/>
     </>
