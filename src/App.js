@@ -3,32 +3,27 @@ import './App.css';
 import NewTask from './components/Tasks/NewTask';
 import TaskItem from './components/Tasks/TaskItem';
 import Header from './components/UI/Header';
+import useHttp from './components/hooks/useHttp';
 
 function App(props) {
-  const [error, setError] = useState();
-  const [isLoading, setIsLoading] = useState(false);
+  // const [error, setError] = useState();
+  // const [isLoading, setIsLoading] = useState(false);
   const [todos, setTodos] = useState([]);
-
-  const fetchItems = async () => {
-    setIsLoading(true);
-    try {
-        const response = await fetch('https://todo-b742c-default-rtdb.firebaseio.com/todos.json')
-        const data = await response.json();
-        const tasks = [];
-
-        for (const items in data){
-            tasks.push({id:items, text:data[items].text})
-        }
-        setTodos(tasks);
-
-    } catch (err){
-        setError(err.message)
-    }
-  setIsLoading(false)
-}
-
+  const {error, isLoading, sendRequest: fetchTasks} = useHttp();
+  
 useEffect(()=> {
-  fetchItems();
+  const transformData = (data) => {
+    const loadedTasks = [];
+
+    for (const items in data) {
+      loadedTasks.push({id:items, text: data[items].text});
+    }
+    setTodos(loadedTasks);
+  }
+
+  fetchTasks(
+    {url:'https://todo-b742c-default-rtdb.firebaseio.com/todos.json'}, 
+    transformData);
  }, [])
 
 const addValueHandler =(enteredValue)=>{
