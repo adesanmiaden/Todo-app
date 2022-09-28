@@ -1,7 +1,6 @@
 .content li {
-    list-style-type: none;
     font-size: large;
 }
-/* .content {
-    margin-left: 10px;
-} */
+.content li{
+    font-size:20px;
+}

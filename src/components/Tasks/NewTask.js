@@ -36,7 +36,8 @@ function NewTask(props) {
   return (
     <div className='taskDiv'>
     <Card>
-        <div>
+        <div className='tasks'>
+            <h3>What is on your schedule?</h3>
             <CreateTask onAddTask={addTask} error={error}/>
         </div>
     </Card>
