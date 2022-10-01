@@ -1,16 +1,14 @@
 import React from 'react';
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import './CreateTask.css'
 
 function CreateTask (props) {
-    const [value, setValue] = useState({id:'', text:''});
     const inputRef = useRef();
 
 
     const submitHandler =(event) => {
         event.preventDefault();
         const enteredValue = inputRef.current.value;
-        setValue(enteredValue);
         props.onAddTask(enteredValue);
         inputRef.current.value = '';
     }
