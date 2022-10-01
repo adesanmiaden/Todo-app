@@ -5,7 +5,6 @@ import './NewTask.css';
 import CreateTask from './CreateTask';
 import useHttp from '../hooks/useHttp';
 
-export const EnteredContext = React.createContext();
 function NewTask(props) {
     const {error, isLoading, sendRequest: sendRequestTask} = useHttp()
 
@@ -18,7 +17,7 @@ function NewTask(props) {
          createTask.bind(null, taskText)
          )
     }
-
+ 
     const createTask=(taskText, data) => {
         const generateId = data.name
         const textContent = {id: generateId, text:taskText}
