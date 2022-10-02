@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import './App.css';
 import NewTask from './components/Tasks/NewTask';
 import TaskItem from './components/Tasks/TaskItem';
 import Header from './components/UI/Header';
 import useHttp from './components/hooks/useHttp';
 
 function App(props) {
-  // const [error, setError] = useState();
-  // const [isLoading, setIsLoading] = useState(false);
   const [todos, setTodos] = useState([]);
   const {error, isLoading, sendRequest: fetchTasks} = useHttp();
   
